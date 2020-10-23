@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { createAppContainer } from "react-navigation";
@@ -48,7 +49,7 @@ const AppContainer = createAppContainer(TabNavigator);
 const styles = StyleSheet.create({
   container: {
     flex: 100,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     justifyContent: 'center',
   },
 });
