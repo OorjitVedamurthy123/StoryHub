@@ -1,30 +1,59 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, ToastAndroid } from 'react-native';
 import {Header} from 'react-native-elements';
+import db from '../config'
+import firebase from 'firebase'
 
 export default class WriteStoryScreen extends React.Component{
+    constructor(){
+        super();
+        this.state={
+            title:"",
+            author:"",
+            story:""
+        }
+    }
+    
+    submitStory=async()=>{
+        await db.collection("Story").add({
+            title:this.state.title,
+            author:this.state.author,
+            mainstory:this.state.story
+        })
+         
+    }
+    
     render(){
         return(
             <View>
                 <Header
-          backgroundColor={'orange'}
+          backgroundColor='orange'
           centerComponent={{
             text: 'Story Hub',
-            style: { color: '#fff', fontSize: 20 },
+            style: { color: 'white', fontSize: 20 },
           }}
         />
         
         <TextInput style={styles.textInput}
             placeholder='Story Title'
+            onChangeText={(text)=>
+                this.setState({
+                    title:text
+                })
+            }
         />
-        <br></br>
-        <br></br>
+
+        
+
         <TextInput style={styles.textInput}
             placeholder='Author'
+            onChangeText={(text)=>
+                this.setState({
+                    author:text
+                })
+            }
         />
-        <br></br>
-        <br></br>
-
+        
         <TextInput style={{width:1200,
         height:250,
         borderWidth:1.5,
@@ -35,9 +64,15 @@ export default class WriteStoryScreen extends React.Component{
         alignSelf:"center"}}
             placeholder='Write your story here'
             multiline={true}
+            onChangeText={(text)=>
+                this.setState({
+                    story:text
+                })
+            }
         />
-        <br></br>
-        <TouchableOpacity style={styles.sbButton}>
+        <TouchableOpacity style={styles.sbButton} onPress={()=>{
+            this.submitStory() 
+        }}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
             </View>
@@ -64,13 +99,11 @@ const styles = StyleSheet.create({
           backgroundColor:'orange',
           textAlign:"center",
           justifyContent:'center',
-          border:10,
           borderWidth:1.5
       },
       buttonText:{
           textAlign:"center",
           alignSelf:"center",
-          fontSize:15,
-          fontVariant:'bold'
+          fontSize:15
       }
 })
