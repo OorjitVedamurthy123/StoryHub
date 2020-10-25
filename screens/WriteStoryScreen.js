@@ -20,12 +20,12 @@ export default class WriteStoryScreen extends React.Component{
             author:this.state.author,
             mainstory:this.state.story
         })
-         
+         ToastAndroid.show("Your story has been saved successfully", ToastAndroid.SHORT)
     }
     
     render(){
         return(
-            <View>
+            <KeyboardAvoidingView>
                 <Header
           backgroundColor='orange'
           centerComponent={{
@@ -72,10 +72,11 @@ export default class WriteStoryScreen extends React.Component{
         />
         <TouchableOpacity style={styles.sbButton} onPress={()=>{
             this.submitStory() 
+            
         }}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -96,9 +97,9 @@ const styles = StyleSheet.create({
           height:40,
           width:120,
           alignSelf:"center",
-          backgroundColor:'orange',
+          backgroundColor:"orange",
           textAlign:"center",
-          justifyContent:'center',
+          justifyContent:"center",
           borderWidth:1.5
       },
       buttonText:{
